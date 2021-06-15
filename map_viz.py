@@ -17,7 +17,7 @@ def viz_results(build_sites, existing_chargers, radius):
 
     fig = plt.figure(figsize=(16, 12), dpi=160)
     ax = fig.add_axes([0, 0, 1, 1])
-    # ax.axis('off')
+    ax.axis('off')
 
     # Draw new build sites
     with open(build_sites) as f:
@@ -65,12 +65,11 @@ def viz_results(build_sites, existing_chargers, radius):
     gdf_charger.plot(ax=ax, color='y', zorder=8)
 
     # Draw radius around chargers
-    radius = 5
     new_df = gdf_charger.copy()
     new_df['geometry'] = new_df['geometry'].buffer(radius/111)
     new_df.plot(ax=ax, color='y', alpha=0.1, zorder=7)
 
-    street_map.plot(ax = ax, color = '#545454', zorder=5)
+    street_map.plot(ax = ax, color = '#545454', zorder=5, linewidth=0.5)
     emirates_map.plot(ax = ax, color = '#d3d3d3', zorder=0)
 
     plt.savefig('map.png')
